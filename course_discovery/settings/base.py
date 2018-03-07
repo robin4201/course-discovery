@@ -89,6 +89,7 @@ MIDDLEWARE_CLASSES = (
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'waffle.middleware.WaffleMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+    'pyinstrument.middleware.ProfilerMiddleware'
 )
 
 ROOT_URLCONF = 'course_discovery.urls'
@@ -390,8 +391,8 @@ SWAGGER_SETTINGS = {
 ELASTICSEARCH_INDEX_SETTINGS = {
     'settings': {
         'index': {
-            'number_of_shards': 3,
-            'number_of_replicas': 2
+            'number_of_shards': 1,
+            'number_of_replicas': 1
         },
         'analysis': {
             'tokenizer': {
