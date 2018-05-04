@@ -18,7 +18,9 @@ before_install:
 
 matrix:
   include:
-    - install:
+    - env: COMMAND=test:quality
+
+      install:
         - docker exec -t discovery bash -c 'sed -i "s/course_discovery.settings.devstack/course_discovery.settings.test/" /edx/app/discovery/discovery_env'
         - docker exec -t discovery bash -c 'source /edx/app/discovery/discovery_env && cd /edx/app/discovery/discovery/ && make requirements'
 
@@ -30,7 +32,9 @@ matrix:
           - docker exec -t discovery bash -c 'source /edx/app/discovery/discovery_env && cd /edx/app/discovery/discovery/ && make static'
           - docker exec -t discovery bash -c 'source /edx/app/discovery/discovery_env && cd /edx/app/discovery/discovery/ && make quality'
 
-    - install:
+    - env: COMMAND=test:unittests
+
+      install:
         - docker exec -t discovery bash -c 'apt update && apt install -y xvfb firefox gettext wget'
         - docker exec -t discovery bash -c 'sed -i "s/course_discovery.settings.devstack/course_discovery.settings.test/" /edx/app/discovery/discovery_env'
         - docker exec -t discovery bash -c 'source /edx/app/discovery/discovery_env && cd /edx/app/discovery/discovery/ && make requirements'
